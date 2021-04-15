@@ -52,7 +52,9 @@ class BST
   def remove(value,parent = nil)
     current = self
     if self.contains(value)
-      while !current.nil?
+      
+      while !current.nil? 
+
         if value < current.value
           parent = current
           current = current.left
@@ -60,11 +62,36 @@ class BST
           parent = current
           current = current.right
         else
-          unless current.left.nil? && current.right.nil?
+          if !current.left.nil? && !current.right.nil?
             current.value = current.right.getMinValue()
+            current.right.remove(current.value,current)
+          elsif parent.nil?
+            if !current.left.nil?
+              current.value = current.left.value
+              current.right = current.left.right
+              current.left =current.left.right
+            elsif !current.right.nil?
+                 current.value = current.right.value
+              current.left = current.right.right
+              current.right =current.right.right
+            end
           end
-        end
+        elsif parrent.left == current
+          if !current.left.nil
+             parrent.left = current.left
+          else
+            parrent.left =current.right
+          end
+      
+        elsif parrent.rigth == current
+          if !current.left.nil
+            parrent.left = current.left
+         else
+           parrent.left =current.right
+         end
+     
       end
+
     else
       return "This node does not contain this value"
     end
@@ -77,5 +104,5 @@ bst = BST.new(3)
  bst.insert(5)
  bst.insert(7)
  bst.insert(2)
- p bst.getMinValue
+ p bst.remove(2)
 # p bst
