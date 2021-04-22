@@ -21,6 +21,16 @@ class Graph {
     }
   }
 
+  deleteEdge(v1, v2) {
+    let index1 = this.adjacency[v1].indexOf(v2)
+    this.adjacency[v1].splice(index1, 1)
+    let index2 = this.adjacency[v2].indexOf(v1)
+    this.adjacency[v2].splice(index2, 1)
+  }
+
+  deleteVertex(v) {
+
+  }
 }
 
 const g = new Graph
@@ -30,5 +40,6 @@ g.addVertex("Tokyo")
 g.addEdge("Tokyo", "Kairo")
 g.addEdge("Brussells", "Chisinau")
 g.addEdge("Madagascar", "Chisinau")
-
+let indx = g.deleteEdge("Chisinau", "Madagascar")
+console.log(indx);
 console.log(g);
