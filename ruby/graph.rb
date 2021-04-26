@@ -35,16 +35,77 @@ class Graph
     end
   end
 
+  def dfs_helper(v,result,visited)
+    return if !v
+    result << v
+    visited[v] = true
+
+    @adjacency[v].each do |neigbour|
+      if !visited[neigbour]
+        dfs_helper(neigbour,result,visited)
+      end
+    end
+  end
+  
+  def dfs_recursive(v)
+    result = []
+    visited = {}
+    self.dfs_helper(v,result,visited)
+  result
+  end
+
+  def dfs_iteratively(v)
+    visited = {}
+    stack  = [v]
+    result = []
+    while !stack.empty?
+      vertex = stack.pop()
+      if !visited[vertex]
+        visited[vertex] = true
+        result << vertex
+        @adjacency[vertex].reverse.each do |el|
+          stack << el
+        end
+      end
+    end
+    result
+  end
+  
+ def bfs(v)
+  result = []
+  visited = {}
+  qeue = [v]
+   while !qeue.empty?
+    vertex = qeue.shift()
+    if !visited[vertex]
+      visited[vertex] = true
+      result << vertex
+      @adjacency[vertex].reverse.each do |el|
+        qeue << el
+      end
+    end  
+   end
+   result
+ end
+ 
+
 end
 
 g = Graph.new
-g.add_vertex("Tokyo")
-g.add_edge("Tokyo","New York")
-g.add_edge("Tokyo","Kuala Lumpur")
-# g.add_edge("Kuala Lumpur","Rio de Janeiro")
-# g.add_edge("Brussells","Tokyo")
-# g.add_edge("Tokyo","Brussells")
-# g.add_edge("Brussells","New York")
-# g.delete_edge("Tokyo","Kuala Lumpur")
-g.delete_vertex("Tokyo")
-p g
+g.add_vertex("A")
+g.add_vertex("B")
+g.add_vertex("C")
+g.add_vertex("D")
+g.add_vertex("F")
+
+g.add_edge("A", "B")
+g.add_edge("A", "C")
+g.add_edge("B", "D")
+g.add_edge("C", "E")
+g.add_edge("D", "E")
+g.add_edge("D", "F")
+g.add_edge("E", "F")
+p g.dfs_recursive("A")
+p g.dfs_iteratively("A")
+p g.bfs("A")
+# p g

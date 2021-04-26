@@ -34,6 +34,43 @@ class Graph {
     });
   }
 
+  DFSIterative(v) {
+    const stack = []
+    const visited = {}
+    const result = []
+    stack.push(v)
+    while (stack.length > 0) {
+      let vertex = stack.pop()
+      if (!visited[vertex]) {
+        visited[vertex] = true
+        result.push(vertex)
+        this.adjacency[vertex].reverse().forEach(el => {
+          stack.push(el)
+        })
+      }
+    }
+    return result
+  }
+  BFSIterative(v) {
+    const qeue = []
+    const visited = {}
+    const result = []
+
+    let vertex
+    qeue.push(v)
+    while (qeue.length) {
+      vertex = qeue.shift()
+      if (!visited[vertex]) {
+        visited[vertex] = true
+        result.push(vertex)
+        this.adjacency[vertex].reverse().forEach(el => {
+          qeue.push(el)
+        })
+      }
+    }
+    return result
+  }
+
 }
 
 const g = new Graph
@@ -51,6 +88,9 @@ g.addEdge("D", "E")
 g.addEdge("D", "F")
 g.addEdge("E", "F")
 
-let r = g.DFSRecursive("A")
-console.log(r);
-console.log(g);
+let a = g.DFSRecursive("A")
+let b = g.DFSIterative("A")
+let c = g.BFSIterative("A")
+console.log(a);
+console.log(b);
+console.log(c);
