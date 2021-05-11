@@ -10,22 +10,14 @@ def quick_helper(arr,s,e)
  left = s+1
  right = e
   while left <= right
-    if arr[left] > arr[pivot] && arr[right] < arr[pivot]
-      swap(arr,left,right)
-    end
-    if arr[left]<=arr[pivot] 
-      left+=1
-    end
-    if arr[right]>=arr[pivot] 
-      right-=1
-    end
+    swap(arr,left,right)  if arr[left] > arr[pivot] && arr[right] < arr[pivot]
+    left+=1  if arr[left]<=arr[pivot]    
+    right-=1 if arr[right]>=arr[pivot] 
   end
-  swap(arr,pivot,right)#We swap the left indx with 
- 
+  swap(arr,pivot,right)#We swap the left most element with right
+  is_small_rray = right-1-s > left+(right+1)
   quick_helper(arr,right+1,e)
   quick_helper(arr,s,right-1)
-
-
 end
 
 def swap(arr,l,r)
@@ -33,4 +25,4 @@ def swap(arr,l,r)
 end
 
  
-p quicksort([8,5,2,9,5,6,3])
+p quicksort([8,12,14,5,2,9,5,6,3])
