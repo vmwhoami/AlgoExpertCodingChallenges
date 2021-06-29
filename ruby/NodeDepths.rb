@@ -15,8 +15,8 @@ def node_depth(root)
 end
 
 # Recursive approach
-
+# O(n) | time  O(n)|space
 def node_depth_recursive(root,depth = 0)
   return 0 if !root
-  return node_depth_recursive(root.left,depth +1 )+node_depth_recursive(root.right,depth +1 )
+  return depth + node_depth_recursive(root.left,depth +1 )+node_depth_recursive(root.right,depth +1 )
 end
